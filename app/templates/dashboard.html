@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weekly Sales Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #1e1e3f;
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #2c2c54;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+canvas {
+  width: 100% !important;
+  height: 300px !important;
+}
+
+
+</style>
+<body>
+    <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
+    <a href="{{ url_for('main.home') }}">Client_Info</a>
+    <a href="{{ url_for('main.daily_counts') }}">Dialy Data</a>
+    {% if current_user.is_authenticated and current_user.role == 'team_lead' %}
+       <a href="{{ url_for('main.weekly_data') }}">Weekly Data</a>
+    {% endif %}
+    <a href="{{ url_for('main.dashboard') }}">Monthly data</a>
+
+</div>
+
+<div id="main">
+    <button class="openbtn" onclick="openSidebar()">☰ Menu</button>
+
+  <div class="container">
+    <h1>Weekly Sales Dashboard</h1>
+
+    <div class="filters">
+      <select id="employee">
+        <option value="">All Employees</option>
+        {% for id, name in employees %}
+        <option value="{{ id }}">{{ name }}</option>
+        {% endfor %}
+      </select>
+
+      <select id="department">
+        <option value="">All Departments</option>
+        {% for dept in departments %}
+        <option value="{{ dept[0] }}">{{ dept[0] }}</option>
+        {% endfor %}
+      </select>
+
+      <input type="date" id="week_start" />
+      <button onclick="loadDashboard()">Filter</button>
+    </div>
+
+    <div class="cards">
+      <div class="card" id="client_closed">Client Closed: 0</div>
+      <div class="card" id="cancellation">Cancellation: 0</div>
+      <div class="card" id="magazine_published">Magazines: 0</div>
+      <div class="card" id="closer_amount">Closer Amt: ₹0</div>
+      <div class="card" id="payment_received">Payment Rec: ₹0</div>
+      <div class="card" id="payable_amount">Payable Amt: ₹0</div>
+    </div>
+
+    <div class="charts">
+      <canvas id="barChart"></canvas>
+      <canvas id="pieChart"></canvas>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+function openSidebar() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeSidebar() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}
+function toggleDropdown(id) {
+    var submenu = document.getElementById(id);
+    if (submenu.style.display === "block") {
+        submenu.style.display = "none";
+    } else {
+        submenu.style.display = "block";
+    }
+}
+</script>
+</body>
+</html>
+
+

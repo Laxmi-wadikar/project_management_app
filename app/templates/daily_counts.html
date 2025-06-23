@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
+    <a href="{{ url_for('main.home') }}">Client_Info</a>
+    <a href="{{ url_for('main.daily_counts') }}">Daily Data</a>
+    <a href="{{ url_for('main.weekly_data') }}">Weekly Data</a>
+    <a href="">Monthly data</a>
+
+</div>
+
+<div id="main">
+    <button class="openbtn" onclick="openSidebar()">☰ Menu</button>
+
+    <h2>Enter Daily Count</h2>
+<form method="POST">
+    <label for="daily_data">Daily Data</label><br>
+    <input type="number" name="daily_data"><br>
+
+    <label for="daily_email">Daily Proposal Email</label><br>
+    <input type="number" name="daily_email"><br>
+
+    <label for="daily_reminders">Daily remainders</label><br>
+    <input type="number" name="daily_reminders"><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Sr. No</th>
+            <th>Daily Data</th>
+            <th>Daily Proposal Email</th>
+            <th>Daily Reminders</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entry in daily_entries %}
+        <tr>
+            <td>{{ entry.per_user_count }}</td>
+            <td>{{ entry.daily_data }}</td>
+            <td>{{ entry.daily_email }}</td>
+            <td>{{ entry.daily_reminders }}</td>
+            <td>{{ entry.created_at.strftime('%Y-%m-%d') if entry.created_at else '' }}</td>
+            <td><a href="{{ url_for('main.edit_daily_entry', entry_id=entry.dailyentry_id) }}">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function openSidebar() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeSidebar() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}
+function toggleDropdown(id) {
+    var submenu = document.getElementById(id);
+    if (submenu.style.display === "block") {
+        submenu.style.display = "none";
+    } else {
+        submenu.style.display = "block";
+    }
+}
+</script>
+</body>
+</html>

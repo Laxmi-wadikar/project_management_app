@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+</head>
+<body>
+    
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
+    <a href="{{ url_for('main.home') }}">Client_Info</a>
+    <a href="{{ url_for('main.daily_counts') }}">Daily Data</a>
+    {% if current_user.is_authenticated and current_user.role == 'team_lead' %}
+       <a href="{{ url_for('main.weekly_data') }}">Weekly Data</a>
+    {% endif %}
+    <a href="{{ url_for('main.dashboard') }}">Monthly data</a>
+
+</div>
+
+<div id="main">
+    <button class="openbtn" onclick="openSidebar()">☰ Menu</button>
+
+    
+    <!-- home.html -->
+
+    <h2>Welcome, {{ current_user.username }}!</h2>
+    <p>Your role: <strong>{{ current_user.role }}</strong></p>
+
+    {% if current_user.role == 'admin' %}
+        <a href="{{ url_for('main.home') }}">Editor Panel</a><br>
+        <a href="{{ url_for('main.home') }}">Manager Panel</a><br>
+        <a href="{{ url_for('main.weekly_data') }}">Team Lead Panel</a><br>
+        <a href="{{ url_for('main.home') }}">Employee Panel</a><br>
+    {% endif %}
+
+    {% if current_user.role == 'Manager' %}
+        <a href="{{ url_for('main.home') }}">Editor Panel</a><br>
+        <a href="{{ url_for('main.weekly_data') }}">Team Lead Panel</a><br>
+        <a href="{{ url_for('main.home') }}">Employee Panel</a><br>
+    {% endif %}
+
+    {% if current_user.role == 'team lead' %}
+        <a href="{{ url_for('main.home') }}">Employee Panel</a><br>
+    {% endif %}
+
+    <!-- {% if current_user.role in ['admin', 'editor'] %}
+        <a href="{{ url_for('main.home') }}">Editor Panel</a><br>
+    {% endif %}
+
+    {% if current_user.role in ['admin', 'manager'] %}
+        <a href="{{ url_for('main.home') }}">Manager Panel</a><br>
+    {% endif %}
+
+    {% if current_user.role in ['admin', 'team_lead'] %}
+        <a href="{{ url_for('main.home') }}">Team Lead Panel</a><br>
+    {% endif %}
+
+    {% if current_user.role in ['admin', 'employee'] %}
+        <a href="{{ url_for('main.home') }}">Employee Panel</a><br>
+    {% endif %} -->
+
+
+
+    <br>
+
+<a href="{{ url_for('main.index')}}" class="btn">add client</a>
+<h1>Clients Information</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>User Id</th>
+            <!-- <th>User Name</th> -->
+            <th>Client Name</th>
+            <th>Company</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Client Response</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for client in clients %}
+        <tr>
+            <td>{{ client.today.strftime('%Y-%m-%d') if client.today else '' }}</td> 
+            <td>{{ client.user_id }}</td>
+            <!-- <td>{{ client.clientname }}</td> -->
+            <td>{{ client.clientname }}</td>
+            <td>{{ client.company }}</td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.contact }}</td>
+            <td>{{ client.response }}</td>
+            <td>{{ client.status }}</td>
+            <td>
+                <a href="{{ url_for('main.edit_client', client_id=client.client_id) }}">Edit</a>
+            </td>
+            <td><a href="{{ url_for('main.client_detail', client_id=client.client_id) }}">View</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('main.logout') }}">Logout</a>
+</div>
+
+<script>
+function openSidebar() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeSidebar() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}
+function toggleDropdown(id) {
+    var submenu = document.getElementById(id);
+    if (submenu.style.display === "block") {
+        submenu.style.display = "none";
+    } else {
+        submenu.style.display = "block";
+    }
+}
+</script>
+</body>
+</html> 

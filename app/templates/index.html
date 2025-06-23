@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client Management</title>
+</head>
+<body>
+    <h1>Add Client</h1>
+    <form method="POST">
+        <label for="username">User Name</label><br>
+        <input type="text" name="username"><br>
+        <label for="sales_id">Sales ID</label><br>
+        <input type="text" name="sales_id"><br>
+
+        <label for="clientname">Client Name</label><br>
+        <input type="text" name="clientname"><br>
+
+        <label for="company">Company Name</label><br>
+        <input type="text" name="company"><br>
+
+        <label for="email">Email</label><br>
+        <input type="text" name="email"><br>
+
+        <label for="contact">Contact</label><br>
+        <input type="tel" name="contact" pattern="[0-9]{10,15}" required>
+
+        <label for="response">Response</label><br>
+        <select name="response">
+            <option value=""></option>
+            <option value="positive">Positive</option>
+            <option value="negative">Negative</option>
+        </select><br>
+
+        <label for="status">Status</label><br>
+        <input type="text" name="status"><br>
+
+        <label for="discription">Description</label><br>
+        <input type="text" name="description"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+  
+    <a href="{{ url_for('main.home') }}" class="btn btn-secondary mt-3">Back to Client List</a>
+    
+</body>
+</html>

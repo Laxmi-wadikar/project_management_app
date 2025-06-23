@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weekly Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<style>
+    td {
+    text-align: right;
+}
+
+</style>
+<body>
+    <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
+    <a href="{{ url_for('main.home') }}">Client_Info</a>
+    <a href="{{ url_for('main.daily_counts') }}">Daily Data</a>
+    <a href="{{ url_for('main.weekly_data') }}">Weekly Data</a>
+    <a href="">Monthly data</a>
+
+</div>
+
+<div id="main">
+    <button class="openbtn" onclick="openSidebar()">☰ Menu</button>
+    <h2>Weekly Data</h2>
+
+    <form method="POST">
+    <label for="week_start">Week Start Date</label><br />
+    <input type="date" id="week_start" name="week_start" required /><br />
+
+    <label for="user_id">User ID</label><br />
+    <input type="number" id="user_id" name="user_id" required /><br />
+
+    <label for="client_closed">Client_Closed</label><br />
+    <input type="number" id="client_closed" name="client_closed" /><br />
+
+    
+    <select name="currency" required>
+    {% set selected_currency = request.form.get('currency', currency if currency else 'USD') %}
+    <option value="USD" {% if selected_currency == 'USD' %}selected{% endif %}>USD</option>
+    <option value="INR" {% if selected_currency == 'INR' %}selected{% endif %}>INR</option>
+   </select><br>
+
+
+    <label>Closer Amount:</label><br>
+    <input type="number" name="closer_amount" required><br>
+
+    <label>Payment Received:</label><br>
+    <input type="number" name="payment_recived" required><br>
+
+    <label for="cancallation">Cancellation</label><br />
+    <input type="number" id="cancallation" name="cancallation" /><br />
+
+    <label for="magazine_publised">Magazine Published</label><br />
+    <input type="number" id="magazine_publised" name="magazine_publised" /><br />
+
+    <button type="submit">Submit</button>
+</form>
+
+
+<h2>Weekly Reports</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Sr. No</th>
+            <th>User ID</th>
+            <th>Week Start</th>
+            <th>Client Closed</th>
+            <th>Closer Amount</th>
+            <th>Payment Received</th>
+            <th>Payable Amount</th>
+            <th>Cancellation</th>
+            <th>Magazine Published</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for report in weekly_reports %}
+       {% set currency_symbols = {'USD': '$', 'INR': '₹'} %}
+    <tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ report.user_id }}</td>
+    <td>{{ report.week_start.strftime('%Y-%m-%d') if report.week_start else '' }}</td>
+    <td>{{ report.client_closed or '—' }}</td>
+    
+    <td>
+        {% if report.closer_amount %}
+            {{ currency_symbols[report.currency] if report.currency in currency_symbols else '' }} {{ report.closer_amount }}
+        {% else %}—{% endif %}
+    </td>
+    
+    <td>
+        {% if report.payment_recived %}
+            {{ currency_symbols[report.currency] if report.currency in currency_symbols else '' }} {{ report.payment_recived }}
+        {% else %}—{% endif %}
+    </td>
+    
+    <td>
+        {% if report.payable_amount %}
+            {{ currency_symbols[report.currency] if report.currency in currency_symbols else '' }} {{ report.payable_amount }}
+        {% else %}—{% endif %}
+    </td>
+
+    <td>{{ report.cancallation or '—' }}</td>
+    <td>{{ report.magazine_publised or '—' }}</td>
+    <td>
+        <a href="{{ url_for('main.edit_weeklyreport', weeklyreport_id=report.WeeklyReport_id) }}">Edit</a>
+    </td>
+</tr>
+{% endfor %}
+    </tbody>
+</table>
+
+
+
+<script>
+function openSidebar() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeSidebar() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}
+function toggleDropdown(id) {
+    var submenu = document.getElementById(id);
+    if (submenu.style.display === "block") {
+        submenu.style.display = "none";
+    } else {
+        submenu.style.display = "block";
+    }
+}
+</script>
+</body>
+</html>

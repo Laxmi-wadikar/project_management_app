@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Edit Weekly Entry</h2>
+<form method="POST">
+    <label for="week_start">Week Start Date</label><br>
+    <input type="date" name="week_start" value="{{report.week_start}}" required><br>
+
+    <label for="user_id">User ID</label><br>
+    <input type="number" name="user_id"  value="{{report.user_id}}" required><br>
+
+    <label>Currency:</label><br>
+    <select name="currency" required>
+        <option value="USD" {% if currency == 'USD' %}selected{% endif %}>USD</option>
+        <option value="INR" {% if currency == 'INR' %}selected{% endif %}>INR</option>
+    </select><br>
+
+    <label>Closer Amount:</label><br>
+    <input type="number" name="closer_amount" value="{{report.closer_amount}}" required><br>
+
+    <label>Payment Received:</label><br>
+    <input type="number" name="payment_recived" value="{{report.payment_recived}}" required><br>
+
+    <label for="cancallation">Cancellation</label><br>
+    <input type="number" id="cancallation" name="cancallation" value="{{report.cancallation}}" required><br>
+
+    <label for="magazine_publised">Magazine Published</label><br>
+    <input type="number" id="magazine_publised" name="magazine_publised" value="{{report.magazine_publised}}" required><br>
+
+    
+    <button type="submit">Update</button>
+</form>
+<a href="{{ url_for('main.weekly_data') }}">Back</a>
+</body>
+</html>

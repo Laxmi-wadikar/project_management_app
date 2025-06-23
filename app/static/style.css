@@ -1,0 +1,168 @@
+/* .navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #c823fa;
+    display: flex;
+}
+
+.navbar li {
+    position: relative;
+}
+
+.navbar li a {
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background-color: #c823fa;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #c823fa;
+    min-width: 160px;
+    z-index: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-content li a {
+    padding: 12px 16px;
+    display: block;
+    color: white;
+    text-align: left;
+}
+
+.dropdown-content li a:hover {
+    background-color: #c823fa;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+} */
+
+body {
+    font-family: "Arial", sans-serif;
+    transition: margin-left .3s;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 25px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    margin: 10px;
+}
+
+#main {
+    transition: margin-left .3s;
+    padding: 16px;
+}
+
+.submenu {
+    display: none;
+    background-color: #111;
+    padding-left: 15px;
+}
+
+.submenu a {
+    font-size: 16px;
+}
+
+.dropdown a {
+    cursor: pointer;
+}
+
+
+
+body {
+    background-color: #f5f7fa;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+    /* padding-left: 30%; */
+    font-size: 40px;
+}
+
+.project-list {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0;
+    font-size: 25px;
+    list-style-type: none;
+}
+
+.project-list li {
+    background: white;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+a{
+    border: 2px;
+    padding: 5px;
+    color: black;
+    border-color: black;
+}
+.btn{
+    background-color: purple;
+    color: #ffffff;
+    padding: 10px 20px;
+  background-color: #007bff; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
