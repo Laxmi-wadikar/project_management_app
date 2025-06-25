@@ -21,15 +21,6 @@
             width: 300px;
         }
 
-        /* h2 {
-            text-align: top;
-            color: #333;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 300px; */
-        /* } */
 
         label {
             display: block;
@@ -82,15 +73,15 @@
         }
     </style>
 <body>
-<form method="POST">
+<form method="POST" action="{{ url_for('main.login') }}">
   <h2>Login</h2>
-    <label>Username:</label><br>
-    <input type="text" name="username" required><br><br>
-    
-    <label>Password:</label><br>
-    <input type="password" name="password" required><br><br>
-    
-    <input type="submit" value="Login">
+  <label>Username:</label><br>
+  <input type="text" name="username" required><br><br>
+
+  <label>Password:</label><br>
+  <input type="password" name="password" required><br><br>
+
+  <input type="submit" value="Login">
 </form>
 
 
